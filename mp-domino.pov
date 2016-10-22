@@ -11,24 +11,24 @@
 #include "woods.inc"
 
 global_settings {
-    radiosity {
-      pretrace_start 0.08
-      pretrace_end   0.01
-      count 150
-      nearest_count 10
-      error_bound 0.5
-      recursion_limit 3
-      low_error_factor 0.5
-      gray_threshold 0.0
-      minimum_reuse 0.005
-      maximum_reuse 0.2
-      brightness 3
-      adc_bailout 0.005
-    }
+  radiosity { // copied from tutorial
+    pretrace_start 0.08
+    pretrace_end   0.01
+    count 150
+    nearest_count 10
+    error_bound 0.5
+    recursion_limit 2
+    low_error_factor 0.5
+    gray_threshold 0.0
+    minimum_reuse 0.005
+    maximum_reuse 0.2
+    brightness 3
+    adc_bailout 0.005
   }
+  ambient_light rgb<0.1, 0.1, 0.1>
+}
 
-// sun like, in south west position
-light_source {
+light_source { // sun like, in south west position
   <0, 1000, 0>
   color White
   parallel
@@ -45,11 +45,9 @@ light_source {
   }
 }
 
-#macro MakeModule(posVec, iRot, iFrontDoor, iBackDoor, iLeftDoor, iRightDoor)
-  //Make a 2x5x3 module with roof window and doors
-  union {
-    // the floor
-    box {
+#macro MakeModule(vecPos, iRot, iFrontDoor, iBackDoor, iLeftDoor, iRightDoor) //Make a 2x5x3 module with roof window and doors
+  union { // whole module to translate and to rotate
+    box { // the floor
       <0, -1, 0>
       <20, 0, 50>
       texture {
@@ -62,8 +60,7 @@ light_source {
         }
       }
     }
-    // the ceiling
-    difference {
+    difference { // the ceiling
       box {
         <0, 30, 0>
         <20, 31, 50>
@@ -98,9 +95,8 @@ light_source {
         T_Wood10
       }
     }
-    union {
-      // front wall
-      difference {
+    union { // walls
+      difference { // front wall
         box {
           <0, 0, 0>
           <20, 30, 0.5>
@@ -110,8 +106,7 @@ light_source {
           <iFrontDoor*10-1, 19, 5>
         }
       }
-      // back wall
-      difference {
+      difference { // back wall
         box {
           <0, 0, 49.5>
           <20, 30, 50>
@@ -121,8 +116,7 @@ light_source {
           <iBackDoor*10-1, 19, 55>
         }
       }
-      // left wall
-      difference {
+      difference { // left wall
         box {
           <0, 0, 0>
           <0.5, 30, 50>
@@ -132,8 +126,7 @@ light_source {
           <5, 19, iLeftDoor*10-1>
         }
       }
-      // right wall
-      difference {
+      difference { // right wall
         box {
           <19.5, 0, 0>
           <20, 30, 50>
@@ -147,13 +140,7 @@ light_source {
         T_Grnt20
       }
     }
+    rotate <0, -90*iRot, 0>
+    translate vecPos
   }
 #end
-
-// sample camera
-camera {
-  location <1, 15, 1>
-  look_at <20, 15, 50>
-}
-// sample module
-MakeModule(<0,0,0>, 0, 0, 0, 5, 5)
