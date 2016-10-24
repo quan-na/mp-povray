@@ -27,14 +27,14 @@
       brightness 3
       adc_bailout 0.005
     }
-    ambient_light rgb<0.1, 0.1, 0.1>
+    ambient_light rgb<0.3, 0.3, 0.3>
   }
 
   light_source { // sun like, in south west position
     <0, 1000, 0>
     color White
     parallel
-    point_at<100, 800, 100> 
+    point_at<100, 800, 100>
   }
 
   #declare TileNormal = normal
@@ -55,7 +55,7 @@
         texture {
           T_Grnt19
         }
-        normal { 
+        normal {
           average normal_map {
             [1 TileNormal]
             [1 TileNormal rotate y*90]
