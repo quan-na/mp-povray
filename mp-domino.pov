@@ -28,6 +28,7 @@
       adc_bailout 0.005
     }
     ambient_light rgb<0.3, 0.3, 0.3>
+    assumed_gamma 1.0
   }
 
   light_source { // sun like, in south west position

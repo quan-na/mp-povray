@@ -1,7 +1,7 @@
 /*
  Map render top view of all rooms
 */
-
+#version 3.7;
 #ifndef (mp_room_000)
   #include "mp-room-000.pov"
 #end
