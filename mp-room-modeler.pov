@@ -13,6 +13,6 @@ MakeModule(<0,0,0>, 0, 0, 0, 0, 0)
 MakeFrontWallBaguaShelf()
 
 camera {
-  location <10, 17, 40>
+  location <10, 17, 30>
   look_at <10, 15, 0>
 }

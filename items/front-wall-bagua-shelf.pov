@@ -61,7 +61,7 @@
         <19.5, 29.2, 4.5>
       }
       texture {
-        T_Wood8
+        T_Wood13
       }
     }
   #end
