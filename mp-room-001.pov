@@ -13,6 +13,7 @@
           |0 |_____|
           |__|
 */
+#version 3.7;
 #declare mp_room_001=1;
 
 #include "mp-domino.pov"

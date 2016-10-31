@@ -64,4 +64,5 @@ camera {
     location <5, 17, 35+10*xclock>
     look_at <-15+20*xclock, 15, 35+30*xclock>
   #end
+  angle 90.0
 }
