@@ -76,16 +76,18 @@
       });
       fileWriter.write('\n\t}\n');
       // write normal coordinates
-      fileWriter.write('\tnormal_vectors {');
-      fileWriter.write('\n\t\t'+normalBuffer.length+',');
-      normalBuffer.forEach(function(val, index, array) {
-        if (index % 3 == 0)
-          fileWriter.write('\n\t\t');
-        fileWriter.write(val.toString());
-        if (index < normalBuffer.length - 1)
-          fileWriter.write(', ');
-      });
-      fileWriter.write('\n\t}\n');
+      if (0 < normalBuffer.length) {
+        fileWriter.write('\tnormal_vectors {');
+        fileWriter.write('\n\t\t'+normalBuffer.length+',');
+        normalBuffer.forEach(function(val, index, array) {
+          if (index % 3 == 0)
+            fileWriter.write('\n\t\t');
+          fileWriter.write(val.toString());
+          if (index < normalBuffer.length - 1)
+            fileWriter.write(', ');
+        });
+        fileWriter.write('\n\t}\n');
+      }
       // write texture coordinates
       fileWriter.write('\tuv_vectors {');
       fileWriter.write('\n\t\t'+textureBuffer.length+',');
@@ -109,16 +111,18 @@
       });
       fileWriter.write('\n\t}\n');
       // write normal face indexes
-      fileWriter.write('\tnormal_indices {');
-      fileWriter.write('\n\t\t'+nFaceBuffer.length+',');
-      nFaceBuffer.forEach(function(val, index, array) {
-        if (index % 3 == 0)
-          fileWriter.write('\n\t\t');
-        fileWriter.write(val.toString());
-        if (index < nFaceBuffer.length - 1)
-          fileWriter.write(', ');
-      });
-      fileWriter.write('\n\t}\n');
+      if (0 < nFaceBuffer.length) {
+        fileWriter.write('\tnormal_indices {');
+        fileWriter.write('\n\t\t'+nFaceBuffer.length+',');
+        nFaceBuffer.forEach(function(val, index, array) {
+          if (index % 3 == 0)
+            fileWriter.write('\n\t\t');
+          fileWriter.write(val.toString());
+          if (index < nFaceBuffer.length - 1)
+            fileWriter.write(', ');
+        });
+        fileWriter.write('\n\t}\n');
+      }
       // write texture face indexes
       fileWriter.write('\tuv_indices {');
       fileWriter.write('\n\t\t'+tFaceBuffer.length+',');
@@ -131,13 +135,13 @@
       });
       fileWriter.write('\n\t}\n');
       // write texture
-      fileWriter.write('\tuv_mapping\n\ttexture { '+materialOngoing+' }\n');
+      fileWriter.write('\tuv_mapping\n\ttexture { t'+materialOngoing+' }\n');
       // end object
       fileWriter.write('}\n// end ' + objectOngoing + '\n\n');
       // reset params
-      vectorOffset = 1+vectorBuffer.length;
-      textureOffset = 1+textureBuffer.length;
-      normalOffset = 1+normalBuffer.length;
+      vectorOffset = vectorOffset+vectorBuffer.length;
+      textureOffset = textureOffset+textureBuffer.length;
+      normalOffset = normalOffset+normalBuffer.length;
       vectorBuffer = [];
       textureBuffer = [];
       normalBuffer = [];
@@ -155,7 +159,7 @@
             materialOngoing = words[1];
             break;
           case 'map_Kd':
-            fileWriter.write('#declare ' + materialOngoing + ' =\ntexture {\n');
+            fileWriter.write('#declare t' + materialOngoing + ' =\ntexture {\n');
             if (words[1].endsWith('.png'))
               fileWriter.write('\tpigment { image_map { png "' + words[1] + '" } }');
             else if (words[1].endsWith('.jpg'))
@@ -199,7 +203,8 @@
                           n0, n1, n2) {
       vFaceBuffer.push(createPovV3(v0-vectorOffset, v1-vectorOffset, v2-vectorOffset));
       tFaceBuffer.push(createPovV3(t0-textureOffset, t1-textureOffset, t2-textureOffset));
-      nFaceBuffer.push(createPovV3(n0-normalOffset, n1-normalOffset, n2-normalOffset));
+      if (!isNaN(n0) && !isNaN(n1) && !isNaN(n2))
+        nFaceBuffer.push(createPovV3(n0-normalOffset, n1-normalOffset, n2-normalOffset));
     };
     _this.endFile = function() {
       if (objectOngoing)
@@ -216,6 +221,9 @@
       console.log('x coordinate range : '+xKeeper.min()+' .. '+xKeeper.max());
       console.log('y coordinate range : '+yKeeper.min()+' .. '+yKeeper.max());
       console.log('z coordinate range : '+zKeeper.min()+' .. '+zKeeper.max());
+      fileWriter.write('// x coordinate range : '+xKeeper.min()+' .. '+xKeeper.max()+'\n');
+      fileWriter.write('// y coordinate range : '+yKeeper.min()+' .. '+yKeeper.max()+'\n');
+      fileWriter.write('// z coordinate range : '+zKeeper.min()+' .. '+zKeeper.max()+'\n');
       // camera 1.5*(maxy minx minz) lookat miny maxx maxz
       fileWriter.write('camera {\n\tlocation <'+xKeeper.min()+'*1.5, '+yKeeper.max()+'*1.5, '+zKeeper.min()+'*1.5>' +
                        '\n\tlook_at <'+xKeeper.max()+', '+yKeeper.min()+', '+zKeeper.max()+'>\n}');
@@ -265,6 +273,7 @@
               objProcessor.materialLib(words[1]);
               break;
             case 'g':
+            case 'o':
               if (words.length > 1) {
                 console.log("Found object : " + words[1]);
                 objProcessor.object(words[1]);
