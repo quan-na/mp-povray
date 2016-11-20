@@ -9,7 +9,6 @@
 
   #include "colors.inc"
   #include "textures.inc"
-  #include "stones.inc"
   #include "woods.inc"
 
   global_settings {
@@ -87,6 +86,9 @@
     }
   #end
 
+  #ifndef (tiled_making_map)
+    #declare tiled_making_map = 0;
+  #end
   #macro MakeTiledCeiling(iX, iZ)
     mesh2 {
       vertex_vectors {
@@ -100,29 +102,44 @@
       }
       uv_mapping
       texture{
-        pigment{ color Black }
-        finish{ reflection 0.7 }
+        #if (tiled_making_map = 0)
+          pigment{ color Black }
+          finish{ reflection 0.7 }
+        #else
+          pigment{ color White }
+        #end
       }
       translate <iX*10, 0, iZ*10>
     }
   #end
 
   #macro MakeTiledLight(iX, iZ)
+    #if (tiled_making_map != 0)
+      box {
+        <0, 31, 0>
+        <10, 32, 10>
+        texture {
+          pigment{ color Green }
+        }
+        translate <iX*10, 0, iZ*10>
+      }
+    #end
     light_source {
       <5, 29, 5>
       color White
       looks_like {
         mesh2 {
           vertex_vectors {
-            5, 
+            5,
             <0,  0, 0>,
             <-1, 1, -1>, <1, 1, -1>,
             <1, 1, 1>, <-1, 1, 1>
           }
           face_indices {
-            4,
+            6,
             <0, 1, 2>, <0, 2, 3>,
-            <0, 3, 4>, <0, 4, 1>
+            <0, 3, 4>, <0, 4, 1>,
+            <1, 2, 3>, <1, 3, 4>
           }
           uv_mapping
           hollow
@@ -149,5 +166,65 @@
       }
       translate <iX*10, 0, iZ*10>
     }
+  #end
+
+  #macro MakePictureFrame(iWidth, iHeight, sTexture)
+    #local frame_width = 0.5;
+    #if (iWidth < 2 | iHeight < 2)
+      #local frame_width = 0.2;
+    #end
+    union {
+      box {
+        <0, 0, -0.2> <frame_width, iHeight + 2*frame_width, 0>
+      }
+      box {
+        <frame_width + iWidth, 0, -0.2> <iWidth + 2*frame_width, iHeight + 2*frame_width, 0>
+      }
+      box {
+        <0, 0, -0.2> <iWidth + 2*frame_width, frame_width, 0>
+      }
+      box {
+        <0, frame_width + iHeight, -0.2> <iWidth + 2*frame_width, iHeight + 2*frame_width, 0>
+      }
+      texture {
+        T_Wood35
+      }
+    }
+    mesh2 {
+      vertex_vectors {
+        4, 
+        <frame_width, frame_width, -0.1>, <frame_width+iWidth, frame_width, -0.1>,
+        <frame_width+iWidth, frame_width+iHeight, -0.1>, <frame_width, frame_width+iHeight, -0.1>
+      }
+      uv_vectors {
+        4,
+        <0, 0>, <1, 0>,  <1, 1>, <0, 1>     
+      }
+      face_indices {
+        2,
+        <0, 1, 2>, <0, 2, 3>
+      }
+      uv_mapping
+      texture {
+        pigment { image_map { png sTexture } }
+      }
+    }
+  #end
+
+  #macro MakeMassWalls(iXStart, iXEnd, iZStart, iZEnd, iR)
+    #for (iX, iXStart, iXEnd)
+      #for (iZ, iZStart, iZEnd)
+        MakeTiledWall(iX, iZ, iR)
+      #end
+    #end
+  #end
+
+  #macro MakeMassFlings(iXStart, iXEnd, iZStart, iZEnd)
+    #for (iX, iXStart, iXEnd)
+      #for (iZ, iZStart, iZEnd)
+        MakeTiledFloor(iX, iZ)
+        MakeTiledCeiling(iX, iZ)
+      #end
+    #end
   #end
 #end
