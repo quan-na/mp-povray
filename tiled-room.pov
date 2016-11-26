@@ -136,10 +136,9 @@
             <1, 1, 1>, <-1, 1, 1>
           }
           face_indices {
-            6,
+            4,
             <0, 1, 2>, <0, 2, 3>,
-            <0, 3, 4>, <0, 4, 1>,
-            <1, 2, 3>, <1, 3, 4>
+            <0, 3, 4>, <0, 4, 1>
           }
           uv_mapping
           hollow
@@ -226,5 +225,12 @@
         MakeTiledCeiling(iX, iZ)
       #end
     #end
+  #end
+
+  #macro MakePathBox(iX, iZ, iR1, iR2)
+    MakeTiledFloor(iX, iZ)
+    MakeTiledCeiling(iX, iZ)
+    MakeTiledWall(iX, iZ, iR1)
+    MakeTiledWall(iX, iZ, iR2)
   #end
 #end

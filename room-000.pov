@@ -1,19 +1,15 @@
 /*
-  This room is the start of all routes
-                  
-   1           2  
-  +  +--+--+--+  +
-  |              |
-  +              +
-  |              |
-  +              +
-  |              |
-  +              +
-  |              |
-  +              +
-  |X             | X: 0-0
-  +--+  +--+  +--+
-      3     4  
+  Start room
+
+  1   2
+  XXXXX
+  XXXXX
+  XXLXX
+  XXXXX
+  OXXXX
+   3 4
+
+  O : 0-0  
                
   1 - Science
   2 - Life
