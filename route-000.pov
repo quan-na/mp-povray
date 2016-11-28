@@ -1,6 +1,7 @@
 
 #include "room-000.pov"
 #include "room-001.pov"
+#include "room-002.pov"
 
 /* Script:
    - Start sitting at 25-10-10, looking lamb 25-25-25

@@ -7,7 +7,7 @@
   XXLXX
   XXXXX
   OXXXX
-   3 4
+   4 3
 
   O : 0-0  
                
