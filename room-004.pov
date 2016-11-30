@@ -1,5 +1,5 @@
 /*
-  Life room
+  Emergent room
 
                 --
                 --

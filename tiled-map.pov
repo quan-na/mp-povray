@@ -3,6 +3,7 @@
 #include "room-000.pov"
 #include "room-001.pov"
 #include "room-002.pov"
+#include "room-003.pov"
 #include "room-004.pov"
 
 light_source { // sun like, in south west position
