@@ -48,13 +48,13 @@ MakeTiledWall(-13, -4, 1)
   MakeTiledWall(-2*iCnt, -4, 0)
 #end
 
-MakeTiledLight(1, -2)
+//MakeTiledLight(1, -2)
 MakeTiledLight(-4, -2)
 MakeTiledLight(-8, -2)
-MakeTiledLight(-13, -2)
-MakeTiledLight(1, -4)
+//MakeTiledLight(-13, -2)
+//MakeTiledLight(1, -4)
 MakeTiledLight(-4, -4)
 MakeTiledLight(-8, -4)
-MakeTiledLight(-13, -4)
+//MakeTiledLight(-13, -4)
 
 // TODO pictures
