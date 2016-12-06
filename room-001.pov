@@ -2,10 +2,10 @@
   Science room
 
     XXXXX
-    XLXXO
+    XXXXO
     XX X   -
-    XX 0----
-  XXLX -----
+    XL 0----
+  XXXX -----
   XXXX -----
        -----
        -----
@@ -33,7 +33,28 @@ MakeTiledWall(1, 6, 2)
 MakeTiledWall(-1, 6, 2)
 MakeMassWalls(1, 1, 6, 7, 3)
 
-MakeTiledLight(-2, 6)
-MakeTiledLight(-3, 3)
+MakeTiledLight(-3, 7)
+MakeTiledLight(-2, 2)
 
-// TODO pictures
+union {
+  MakePictureFrame(12.06, 15.54, "textures/NicolasTesla.png")
+  translate <-3, 5, 80>
+}
+
+union {
+  MakePictureFrame(7.14, 7.34, "textures/ScientificMethod.png")
+  rotate <0, -90, 0>
+  translate <-30, 12, 65>
+}
+
+union {
+  MakePictureFrame(14.4, 9.11, "textures/Galaxy.png")
+  rotate <0, 180, 0>
+  translate <-15, 10, 20>
+}
+
+union {
+  MakePictureFrame(4.23, 6, "textures/Curious.png")
+  rotate <0, -90, 0>
+  translate <-50, 15, 21>
+}

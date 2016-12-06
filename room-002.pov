@@ -36,4 +36,8 @@ MakeMassWalls(4, 4, 8, 11, 3)
 
 MakeTiledLight(4, 7)
 
-// TODO pictures
+union {
+  MakePictureFrame(9.42, 10, "textures/TreeOfLife.png")
+  rotate <0, 90, 0>
+  translate <50, 10, 60>
+}

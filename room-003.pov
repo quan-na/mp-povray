@@ -51,4 +51,8 @@ MakeMassWalls(8, 8, 0, 1, 3)
 
 MakeTiledLight(7, -3)
 
-// TODO pictures
+union {
+  MakePictureFrame(5.64, 5.64, "textures/BuddhaHand.png")
+  rotate <0, 90, 0>
+  translate <40, 12, -2.5>
+}

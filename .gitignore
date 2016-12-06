@@ -1,3 +1,5 @@
 *.png
 *~
 *.mp4
+!textures/*.png
+textures/*.svg.png
