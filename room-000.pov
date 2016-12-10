@@ -47,6 +47,10 @@ union {
   translate <30, 7, 50>
 }
 union {
+  MakePictureFrame(9, 5.98, "textures/Bison.png")
+  translate <11, 2.5, 50>
+}
+union {
   MakePictureFrame(32, 24, "tiled-map.png")
   translate <10, 2, 0>
   rotate <0, -90, 0>
