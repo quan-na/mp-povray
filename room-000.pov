@@ -39,7 +39,7 @@ union {
   translate <12, 20, 50>
 }
 union {
-  MakePictureFrame(6.4, 4, "textures/CoffeeCup.png")
+  MakePictureFrame(6.49, 3.3, "textures/Candle.png")
   translate <20, 12, 50>
 }
 union {

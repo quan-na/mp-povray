@@ -261,4 +261,13 @@
     MakeTiledWall(iX, iZ, iR1)
     MakeTiledWall(iX, iZ, iR2)
   #end
+
+  #macro CameraLine(px1, py1, pz1, cx1, cy1, cz1,
+                    px2, py2, pz2, cx2, cy2, cz2,
+                    ts)
+    camera {
+      location <px1 + ts * (px2 - px1), py1 + ts * (py2 - py1), pz1 + ts * (pz2 - pz1)>
+      look_at  <cx1 + ts * (cx2 - cx1), cy1 + ts * (cy2 - cy1), cz1 + ts * (cz2 - cz1)>
+    }
+  #end
 #end
