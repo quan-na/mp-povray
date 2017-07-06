@@ -1,0 +1,30 @@
+* Description
+
+  A POVRay mind palace coded in org mode babel literate programming.
+  The palace will consist of many house. Each house is presented as a model in previous one.
+  After spanning a house, the camera will goes into the model and start exploring it as a house.
+
+* Source code
+
+** Project setup
+
+*** Makefile
+   This Makefile generates itself. Make sure to use Ctrl-q TAB instead of spaces.
+   Other goals will be appended after this. The all goal may exclude Makefile.
+   Making Makefile will regenerate all the source code.
+
+#+BEGIN_SRC makefile :tangle Makefile
+Makefile: the-source-book.org
+	emacs --batch -l org the-source-book.org -f org-babel-tangle
+#+END_SRC
+
+*** common.pov
+    A pov file contains common macros for the project. Because it can be included many times,
+    there must be a safeguard header check.
+
+#+BEGIN_SRC C :noweb yes :tangle common.pov
+#ifndef (common_pov)
+  #declare common_pov=1
+  <<common_macros>>
+#end
+#+END_SRC
